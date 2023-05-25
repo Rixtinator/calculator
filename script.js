@@ -1,23 +1,34 @@
-function add(a, b) {
-    return a + b;
+let firstNumber;
+let operator;
+let nextNumber;
+
+// Create a new function operate that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
+function operate(firstNumber, operator, nextNumber) {
+    if (operator === "+") {
+        return add(firstNumber, nextNumber);
+    } else if (operator === "-") {
+        return subtract(firstNumber, nextNumber);
+    } else if (operator === "*") {
+        return multiply(firstNumber, nextNumber);
+    } else if (operator === "/") {
+        return divide(firstNumber, nextNumber);
+    } else {
+        return "oops";
+    };
 };
 
-console.log(add(5, 5));
-
-function subtract(a, b) {
-    return a - b;
+function add(firstNumber, nextNumber) {
+    return firstNumber + nextNumber;
 };
 
-console.log(subtract(10, 4));
-
-function multiply(a, b) {
-    return a * b;
+function subtract(firstNumber, nextNumber) {
+    return firstNumber - nextNumber;
 };
 
-console.log(multiply(3, 5));
-
-function divide(a, b) {
-    return a / b;
+function multiply(firstNumber, nextNumber) {
+    return firstNumber * nextNumber;
 };
 
-console.log(divide(10, 3));
+function divide(firstNumber, nextNumber) {
+    return firstNumber / nextNumber;
+};
