@@ -34,7 +34,16 @@ operatorButton.forEach(function (operator) {
 equalsButton.addEventListener('click', function () {
     result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
     displayResult.textContent = result;
+    storedNumber = result;
 });
+
+clearButton.addEventListener('click', function () {
+    storedNumber = '';
+    firstNumber = '';
+    clickedOperator = '';
+    displaySum.textContent = '';
+    displayResult.textContent = '';
+})
 
 
 function add(firstNumber, nextNumber) {
