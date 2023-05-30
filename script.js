@@ -2,20 +2,20 @@ const numberButton = document.querySelectorAll('.number'); //nodelist
 const operatorButton = document.querySelectorAll('.operator'); //nodelist
 const clearButton = document.querySelector('.clear');
 const equalsButton = document.querySelector('.equals');
-const currentOperand = document.querySelector('.current-operand');
-const previousOperand = document.querySelector('.previous-operand');
+const displaySum = document.querySelector('.display-sum');
+const displayResult = document.querySelector('.display-result');
 
 let storedNumber = '';
 let firstNumber = '';
 let nextNumber = '';
 let result = '';
-currentOperand.textContent = '';
-previousOperand.textContent = '';
+displaySum.textContent = '';
+displayResult.textContent = '';
 
 numberButton.forEach(function (number) {
     number.addEventListener('click', function () {
         storedNumber += number.value;
-        previousOperand.textContent = storedNumber;
+        displaySum.textContent = storedNumber;
     });
 });
 
@@ -23,32 +23,31 @@ operatorButton.forEach(function (operator) {
     operator.addEventListener('click', function () {
         firstNumber = storedNumber;
         clickedOperator = operator.value;
-        previousOperand.textContent += clickedOperator;
+        displaySum.textContent += clickedOperator;
         storedNumber = '';
-        currentOperand.textContent = storedNumber;
     });
 });
 
 equalsButton.addEventListener('click', function () {
     result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
-    currentOperand.textContent = result;
-    console.log(result);
+    displayResult.textContent = result;
 });
+
 
 function add(firstNumber, nextNumber) {
     return firstNumber + nextNumber;
 };
 
 function subtract(firstNumber, nextNumber) {
-    return result = firstNumber - nextNumber;
+    return firstNumber - nextNumber;
 };
 
 function multiply(firstNumber, nextNumber) {
-    return result = firstNumber * nextNumber;
+    return firstNumber * nextNumber;
 };
 
 function divide(firstNumber, nextNumber) {
-    return result = firstNumber / nextNumber;
+    return firstNumber / nextNumber;
 };
 
 function operate(firstNumber, nextNumber, clickedOperator) {
