@@ -6,43 +6,38 @@ const equalsButton = document.querySelector('.equals');
 const currentOperand = document.querySelector('.current-operand');
 const previousOperand = document.querySelector('.previous-operand');
 
-let storedNumber = ' ';
-currentOperand.textContent = ' ';
-previousOperand.textContent = ' ';
+let storedNumber = '';
+let firstNumber = '';
+currentOperand.textContent = '';
+previousOperand.textContent = '';
 
 numberButton.forEach(function (number) {
     number.addEventListener('click', function () {
-        storedNumber += number.value
-        currentOperand.textContent += number.value;
+        storedNumber += number.value;
+        previousOperand.textContent = storedNumber;
     });
 });
 
 operatorButton.forEach(function (operator) {
     operator.addEventListener('click', function () {
         firstNumber = storedNumber;
+        clickedOperator = operator.value;
+        previousOperand.textContent += clickedOperator;
         console.log(firstNumber);
-        currentOperand.textContent += operator.value;
     });
 });
 
-//if value is number > function for numbers
-//if value is operator > function operator
-//if value is clear > clear display etc
-//if value is equal > show result
-
-function operate(firstNumber, value, nextNumber) {
-    if (value === "+") {
-        console.log("+");
-        return add(firstNumber, nextNumber);
-    } else if (value === "-") {
-        return subtract(firstNumber, nextNumber);
-    } else if (value === "*") {
-        return multiply(firstNumber, nextNumber);
-    } else if (value === "/") {
-        return divide(firstNumber, nextNumber);
-    } else {
-        return "oops";
-    };
+function operate(firstNumber, nextNumber, clickedOperator) {
+    switch (clickedOperator) {
+        case "+":
+            return add(firstNumber, nextNumber);
+        case "-":
+            return subtract(firstNumber, nextNumber);
+        case "*":
+            return multiply(firstNumber, nextNumber);
+        case "/":
+            return divide(firstNumber, nextNumber);
+    }
 };
 
 function add(firstNumber, nextNumber) {
