@@ -32,3 +32,18 @@ function multiply(firstNumber, nextNumber) {
 function divide(firstNumber, nextNumber) {
     return firstNumber / nextNumber;
 };
+
+// Create the functions that populate the display when you click the number buttons.
+
+function showInputDisplay() {
+    let displayValue = document.getElementById('displayText').innerHTML;
+    let buttons = document.getElementsByTagName('button');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].onclick = function () {
+            displayValue = displayValue + this.innerHTML;
+            document.getElementById('displayText').innerHTML = displayValue;
+        };
+    };
+};
+
+showInputDisplay();
