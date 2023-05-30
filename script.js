@@ -1,4 +1,3 @@
-// DOM 
 const numberButton = document.querySelectorAll('.number'); //nodelist
 const operatorButton = document.querySelectorAll('.operator'); //nodelist
 const clearButton = document.querySelector('.clear');
@@ -8,6 +7,8 @@ const previousOperand = document.querySelector('.previous-operand');
 
 let storedNumber = '';
 let firstNumber = '';
+let nextNumber = '';
+let result = '';
 currentOperand.textContent = '';
 previousOperand.textContent = '';
 
@@ -23,9 +24,32 @@ operatorButton.forEach(function (operator) {
         firstNumber = storedNumber;
         clickedOperator = operator.value;
         previousOperand.textContent += clickedOperator;
-        console.log(firstNumber);
+        storedNumber = '';
+        currentOperand.textContent = storedNumber;
     });
 });
+
+equalsButton.addEventListener('click', function () {
+    result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
+    currentOperand.textContent = result;
+    console.log(result);
+});
+
+function add(firstNumber, nextNumber) {
+    return firstNumber + nextNumber;
+};
+
+function subtract(firstNumber, nextNumber) {
+    return result = firstNumber - nextNumber;
+};
+
+function multiply(firstNumber, nextNumber) {
+    return result = firstNumber * nextNumber;
+};
+
+function divide(firstNumber, nextNumber) {
+    return result = firstNumber / nextNumber;
+};
 
 function operate(firstNumber, nextNumber, clickedOperator) {
     switch (clickedOperator) {
@@ -37,21 +61,5 @@ function operate(firstNumber, nextNumber, clickedOperator) {
             return multiply(firstNumber, nextNumber);
         case "/":
             return divide(firstNumber, nextNumber);
-    }
-};
-
-function add(firstNumber, nextNumber) {
-    return firstNumber + nextNumber;
-};
-
-function subtract(firstNumber, nextNumber) {
-    return firstNumber - nextNumber;
-};
-
-function multiply(firstNumber, nextNumber) {
-    return firstNumber * nextNumber;
-};
-
-function divide(firstNumber, nextNumber) {
-    return firstNumber / nextNumber;
+    };
 };
