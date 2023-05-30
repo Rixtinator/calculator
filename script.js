@@ -1,16 +1,44 @@
-let firstNumber;
-let operator;
-let nextNumber;
+// DOM 
+const numberButton = document.querySelectorAll('.number'); //nodelist
+const operatorButton = document.querySelectorAll('.operator'); //nodelist
+const clearButton = document.querySelector('.clear');
+const equalsButton = document.querySelector('.equals');
+const currentOperand = document.querySelector('.current-operand');
+const previousOperand = document.querySelector('.previous-operand');
 
-// Create a new function operate that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
-function operate(firstNumber, operator, nextNumber) {
-    if (operator === "+") {
+let storedNumber = ' ';
+currentOperand.textContent = ' ';
+previousOperand.textContent = ' ';
+
+numberButton.forEach(function (number) {
+    number.addEventListener('click', function () {
+        storedNumber += number.value
+        currentOperand.textContent += number.value;
+    });
+});
+
+operatorButton.forEach(function (operator) {
+    operator.addEventListener('click', function () {
+        firstNumber = storedNumber;
+        console.log(firstNumber);
+        currentOperand.textContent += operator.value;
+    });
+});
+
+//if value is number > function for numbers
+//if value is operator > function operator
+//if value is clear > clear display etc
+//if value is equal > show result
+
+function operate(firstNumber, value, nextNumber) {
+    if (value === "+") {
+        console.log("+");
         return add(firstNumber, nextNumber);
-    } else if (operator === "-") {
+    } else if (value === "-") {
         return subtract(firstNumber, nextNumber);
-    } else if (operator === "*") {
+    } else if (value === "*") {
         return multiply(firstNumber, nextNumber);
-    } else if (operator === "/") {
+    } else if (value === "/") {
         return divide(firstNumber, nextNumber);
     } else {
         return "oops";
@@ -32,18 +60,3 @@ function multiply(firstNumber, nextNumber) {
 function divide(firstNumber, nextNumber) {
     return firstNumber / nextNumber;
 };
-
-// Create the functions that populate the display when you click the number buttons.
-
-function showInputDisplay() {
-    let displayValue = document.getElementById('displayText').innerHTML;
-    let buttons = document.getElementsByTagName('button');
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].onclick = function () {
-            displayValue = displayValue + this.innerHTML;
-            document.getElementById('displayText').innerHTML = displayValue;
-        };
-    };
-};
-
-showInputDisplay();
