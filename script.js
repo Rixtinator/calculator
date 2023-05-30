@@ -9,13 +9,16 @@ let storedNumber = '';
 let firstNumber = '';
 let nextNumber = '';
 let result = '';
+let clickedOperator = '';
 displaySum.textContent = '';
 displayResult.textContent = '';
 
 numberButton.forEach(function (number) {
     number.addEventListener('click', function () {
         storedNumber += number.value;
-        displaySum.textContent = storedNumber;
+        if (clickedOperator === '') {
+            displaySum.textContent = storedNumber;
+        } else { displaySum.textContent = firstNumber + clickedOperator + storedNumber };
     });
 });
 
