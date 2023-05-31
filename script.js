@@ -1,6 +1,7 @@
 const numberButton = document.querySelectorAll('.number'); //nodelist
 const operatorButton = document.querySelectorAll('.operator'); //nodelist
 const clearButton = document.querySelector('.clear');
+const deleteButton = document.querySelector('.del');
 const equalsButton = document.querySelector('.equals');
 const displaySum = document.querySelector('.display-sum');
 const displayResult = document.querySelector('.display-result');
@@ -14,7 +15,7 @@ displaySum.textContent = '';
 displayResult.textContent = '';
 
 numberButton.forEach(function (number) {
-    number.addEventListener('click', function () {
+    number.addEventListener('click', () => {
         storedNumber += number.value;
         if (clickedOperator === '') {
             displaySum.textContent = storedNumber;
@@ -23,7 +24,7 @@ numberButton.forEach(function (number) {
 });
 
 operatorButton.forEach(function (operator) {
-    operator.addEventListener('click', function () {
+    operator.addEventListener('click', () => {
         firstNumber = storedNumber;
         clickedOperator = operator.value;
         displaySum.textContent += clickedOperator;
@@ -31,13 +32,13 @@ operatorButton.forEach(function (operator) {
     });
 });
 
-equalsButton.addEventListener('click', function () {
+equalsButton.addEventListener('click', () => {
     result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
     displayResult.textContent = result;
     storedNumber = result;
 });
 
-clearButton.addEventListener('click', function () {
+clearButton.addEventListener('click', () => {
     storedNumber = '';
     firstNumber = '';
     clickedOperator = '';
@@ -45,6 +46,12 @@ clearButton.addEventListener('click', function () {
     displayResult.textContent = '';
 })
 
+deleteButton.addEventListener('click', () => {
+    storedNumber = storedNumber.slice(0, -1);
+    if (clickedOperator === '') {
+        displaySum.textContent = storedNumber;
+    } else { displaySum.textContent = firstNumber + clickedOperator + storedNumber };
+});
 
 function add(firstNumber, nextNumber) {
     return firstNumber + nextNumber;
