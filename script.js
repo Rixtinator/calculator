@@ -14,12 +14,16 @@ let clickedOperator = '';
 displaySum.textContent = '';
 displayResult.textContent = '';
 
+function showDisplay() {
+    if (clickedOperator === '') {
+        displaySum.textContent = storedNumber;
+    } else { displaySum.textContent = firstNumber + clickedOperator + storedNumber };
+};
+
 numberButton.forEach(function (number) {
     number.addEventListener('click', () => {
         storedNumber += number.value;
-        if (clickedOperator === '') {
-            displaySum.textContent = storedNumber;
-        } else { displaySum.textContent = firstNumber + clickedOperator + storedNumber };
+        showDisplay();
     });
 });
 
@@ -34,7 +38,7 @@ operatorButton.forEach(function (operator) {
 
 equalsButton.addEventListener('click', () => {
     result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
-    displayResult.textContent = result;
+    displayResult.textContent = Math.round(result * 100) / 100000000;
     storedNumber = result;
 });
 
@@ -48,9 +52,7 @@ clearButton.addEventListener('click', () => {
 
 deleteButton.addEventListener('click', () => {
     storedNumber = storedNumber.slice(0, -1);
-    if (clickedOperator === '') {
-        displaySum.textContent = storedNumber;
-    } else { displaySum.textContent = firstNumber + clickedOperator + storedNumber };
+    showDisplay();
 });
 
 function add(firstNumber, nextNumber) {
