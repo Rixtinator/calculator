@@ -38,7 +38,7 @@ operatorButton.forEach(function (operator) {
 
 equalsButton.addEventListener('click', () => {
     result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
-    displayResult.textContent = Math.round(result * 100) / 100000000;
+    displayResult.textContent = Math.round(result * 1000000) / 1000000;
     storedNumber = result;
 });
 
