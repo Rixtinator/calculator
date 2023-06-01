@@ -79,6 +79,7 @@ function del() {
     if (clickedOperator !== '' && storedNumber === '') {
         storedNumber = firstNumber;
         clickedOperator = '';
+        showDisplay();
     } else {
         storedNumber = storedNumber.slice(0, -1);
         showDisplay();
