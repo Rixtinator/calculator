@@ -106,6 +106,9 @@ numberButton.forEach(function (number) {
 
 operatorButton.forEach(function (operator) {
     operator.addEventListener('click', () => {
+        if (clickedOperator !== '') {
+            calculate();
+        }
         clickedOperator = operator.value;
         addOperator();
     });
@@ -139,6 +142,9 @@ window.addEventListener("keydown", (event) => {
             showDisplay();
         };
     } else if (/[+,/,*,-]/.test(key)) {
+        if (clickedOperator !== '') {
+            calculate();
+        }
         clickedOperator = key;
         addOperator();
         return;
