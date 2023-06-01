@@ -29,12 +29,12 @@ body {
     background-color: #c8c7c7;
     height: 150px;
     text-align: end;
-    padding-top: 40px;
-    padding-right: 20px;
+    padding: 40px 20px;
     justify-content: center;
     border-radius: 10px;
     box-shadow: inset 0px 0px 10px rgb(177, 177, 177, 0.9); 
     margin: 10px 10px -20px 10px; 
+    overflow: scroll;
 }
 
 .display-sum {

@@ -31,7 +31,7 @@ function clear() {
 function calculate() {
     result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
     displayResult.textContent = Math.round(result * 1000000) / 1000000;
-    storedNumber = result;
+    storedNumber = Math.round(result * 1000000) / 1000000;
 };
 
 function addOperator() {
