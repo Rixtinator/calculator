@@ -48,12 +48,108 @@ clearButton.addEventListener('click', () => {
     clickedOperator = '';
     displaySum.textContent = '';
     displayResult.textContent = '';
-})
+});
 
 deleteButton.addEventListener('click', () => {
     storedNumber = storedNumber.slice(0, -1);
     showDisplay();
 });
+
+window.addEventListener("keydown", (event) => {
+    switch (event.key) {
+        case "0":
+            storedNumber += 0;
+            showDisplay();
+            break;
+        case "1":
+            storedNumber += 1;
+            showDisplay();
+            break;
+        case "2":
+            storedNumber += 2;
+            showDisplay();
+            break;
+        case "3":
+            storedNumber += 3;
+            showDisplay();
+            break;
+        case "4":
+            storedNumber += 4;
+            showDisplay();
+            break;
+        case "5":
+            storedNumber += 5;
+            showDisplay();
+            break;
+        case "6":
+            storedNumber += 6;
+            showDisplay();
+            break;
+        case "7":
+            storedNumber += 7;
+            showDisplay();
+            break;
+        case "8":
+            storedNumber += 8;
+            showDisplay();
+            break;
+        case "9":
+            storedNumber += 9;
+            showDisplay();
+            break;
+        case ".":
+            storedNumber += ".";
+            showDisplay();
+            break;
+        case "/":
+            firstNumber = storedNumber;
+            clickedOperator = "/";
+            displaySum.textContent += clickedOperator;
+            storedNumber = '';
+            break;
+        case "*":
+            firstNumber = storedNumber;
+            clickedOperator = "*";
+            displaySum.textContent += clickedOperator;
+            storedNumber = '';
+            break;
+        case "-":
+            firstNumber = storedNumber;
+            clickedOperator = "-";
+            displaySum.textContent += clickedOperator;
+            storedNumber = '';
+            break;
+        case "+":
+            firstNumber = storedNumber;
+            clickedOperator = "+";
+            displaySum.textContent += clickedOperator;
+            storedNumber = '';
+            break;
+        case "Enter":
+            result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
+            displayResult.textContent = Math.round(result * 1000000) / 1000000;
+            storedNumber = result;
+            break;
+        case "=":
+            result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
+            displayResult.textContent = Math.round(result * 1000000) / 1000000;
+            storedNumber = result;
+            break;
+        case "Backspace":
+            storedNumber = storedNumber.slice(0, -1);
+            showDisplay();
+            break;
+        case "c":
+            storedNumber = '';
+            firstNumber = '';
+            clickedOperator = '';
+            displaySum.textContent = '';
+            displayResult.textContent = '';
+        default:
+            return;
+    };
+});
+
 
 function add(firstNumber, nextNumber) {
     return firstNumber + nextNumber;
