@@ -20,6 +20,31 @@ function showDisplay() {
     } else { displaySum.textContent = firstNumber + clickedOperator + storedNumber };
 };
 
+function clear() {
+    storedNumber = '';
+    firstNumber = '';
+    clickedOperator = '';
+    displaySum.textContent = '';
+    displayResult.textContent = '';
+};
+
+function calculate() {
+    result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
+    displayResult.textContent = Math.round(result * 1000000) / 1000000;
+    storedNumber = result;
+};
+
+function addOperator() {
+    firstNumber = storedNumber;
+    displaySum.textContent += clickedOperator;
+    storedNumber = '';
+};
+
+function del() {
+    storedNumber = storedNumber.slice(0, -1);
+    showDisplay();
+}
+
 numberButton.forEach(function (number) {
     number.addEventListener('click', () => {
         storedNumber += number.value;
@@ -29,127 +54,45 @@ numberButton.forEach(function (number) {
 
 operatorButton.forEach(function (operator) {
     operator.addEventListener('click', () => {
-        firstNumber = storedNumber;
         clickedOperator = operator.value;
-        displaySum.textContent += clickedOperator;
-        storedNumber = '';
+        addOperator();
     });
 });
 
 equalsButton.addEventListener('click', () => {
-    result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
-    displayResult.textContent = Math.round(result * 1000000) / 1000000;
-    storedNumber = result;
+    calculate();
 });
 
+
 clearButton.addEventListener('click', () => {
-    storedNumber = '';
-    firstNumber = '';
-    clickedOperator = '';
-    displaySum.textContent = '';
-    displayResult.textContent = '';
+    clear();
 });
 
 deleteButton.addEventListener('click', () => {
-    storedNumber = storedNumber.slice(0, -1);
-    showDisplay();
+    del();
 });
 
 window.addEventListener("keydown", (event) => {
-    switch (event.key) {
-        case "0":
-            storedNumber += 0;
-            showDisplay();
-            break;
-        case "1":
-            storedNumber += 1;
-            showDisplay();
-            break;
-        case "2":
-            storedNumber += 2;
-            showDisplay();
-            break;
-        case "3":
-            storedNumber += 3;
-            showDisplay();
-            break;
-        case "4":
-            storedNumber += 4;
-            showDisplay();
-            break;
-        case "5":
-            storedNumber += 5;
-            showDisplay();
-            break;
-        case "6":
-            storedNumber += 6;
-            showDisplay();
-            break;
-        case "7":
-            storedNumber += 7;
-            showDisplay();
-            break;
-        case "8":
-            storedNumber += 8;
-            showDisplay();
-            break;
-        case "9":
-            storedNumber += 9;
-            showDisplay();
-            break;
-        case ".":
-            storedNumber += ".";
-            showDisplay();
-            break;
-        case "/":
-            firstNumber = storedNumber;
-            clickedOperator = "/";
-            displaySum.textContent += clickedOperator;
-            storedNumber = '';
-            break;
-        case "*":
-            firstNumber = storedNumber;
-            clickedOperator = "*";
-            displaySum.textContent += clickedOperator;
-            storedNumber = '';
-            break;
-        case "-":
-            firstNumber = storedNumber;
-            clickedOperator = "-";
-            displaySum.textContent += clickedOperator;
-            storedNumber = '';
-            break;
-        case "+":
-            firstNumber = storedNumber;
-            clickedOperator = "+";
-            displaySum.textContent += clickedOperator;
-            storedNumber = '';
-            break;
-        case "Enter":
-            result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
-            displayResult.textContent = Math.round(result * 1000000) / 1000000;
-            storedNumber = result;
-            break;
-        case "=":
-            result = operate(parseFloat(firstNumber), parseFloat(storedNumber), clickedOperator);
-            displayResult.textContent = Math.round(result * 1000000) / 1000000;
-            storedNumber = result;
-            break;
-        case "Backspace":
-            storedNumber = storedNumber.slice(0, -1);
-            showDisplay();
-            break;
-        case "c":
-            storedNumber = '';
-            firstNumber = '';
-            clickedOperator = '';
-            displaySum.textContent = '';
-            displayResult.textContent = '';
-        default:
-            return;
+    const key = event.key
+    if (/[0-9.]/.test(key)) {
+        storedNumber += key;
+        showDisplay();
+    };
+    if (/[+,/,*,-]/.test(key)) {
+        clickedOperator = key;
+        addOperator();
+        return;
+    };
+    if (/[=]/.test(key) || /[/r]/.test(key)) {
+        calculate();
+    };
+    if (/^Backspace$/i.test(key)) {
+        del();
+    };
+    if (/c$/.test(key) || /[C]/.test(key)) {
+        clear();
     };
 });
-
 
 function add(firstNumber, nextNumber) {
     return firstNumber + nextNumber;
