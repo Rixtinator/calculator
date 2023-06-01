@@ -11,6 +11,7 @@ let firstNumber = '';
 let nextNumber = '';
 let result = '';
 let clickedOperator = '';
+let dot = false;
 displaySum.textContent = '';
 displayResult.textContent = '';
 
@@ -67,6 +68,7 @@ function calculate() {
 };
 
 function addOperator() {
+
     firstNumber = storedNumber;
     displaySum.textContent += clickedOperator;
     storedNumber = '';
@@ -74,17 +76,16 @@ function addOperator() {
 };
 
 function del() {
-    storedNumber = storedNumber.slice(0, -1);
-    showDisplay();
+    if (clickedOperator !== '' && storedNumber === '') {
+        storedNumber = firstNumber;
+        clickedOperator = '';
+    } else {
+        storedNumber = storedNumber.slice(0, -1);
+        showDisplay();
+    };
 };
 
 // Button input
-let dot = false;
-
-function numberInput() {
-
-}
-
 numberButton.forEach(function (number) {
     number.addEventListener('click', () => {
         if (number.value === '.' && dot === false) {
@@ -102,8 +103,12 @@ numberButton.forEach(function (number) {
 
 operatorButton.forEach(function (operator) {
     operator.addEventListener('click', () => {
-        clickedOperator = operator.value;
-        addOperator();
+        if (storedNumber === '') {
+            return;
+        } else {
+            clickedOperator = operator.value;
+            addOperator();
+        }
     });
 });
 
@@ -134,19 +139,19 @@ window.addEventListener("keydown", (event) => {
             storedNumber += key;
             showDisplay();
         };
-    };
-    if (/[+,/,*,-]/.test(key)) {
-        clickedOperator = key;
-        addOperator();
+    } else if (/[+,/,*,-]/.test(key)) {
+        if (storedNumber === '') {
+            return;
+        } else {
+            clickedOperator = key;
+            addOperator();
+        }
         return;
-    };
-    if (/[=]/.test(key) || /[/r]/.test(key)) {
+    } else if (/[=]/.test(key) || /[/r]/.test(key)) {
         calculate();
-    };
-    if (/^Backspace$/i.test(key)) {
+    } else if (/^Backspace$/i.test(key)) {
         del();
-    };
-    if (/c$/.test(key) || /[C]/.test(key)) {
+    } else if (/c$/.test(key) || /[C]/.test(key)) {
         clear();
     };
 });
