@@ -68,11 +68,14 @@ function calculate() {
 };
 
 function addOperator() {
-
-    firstNumber = storedNumber;
-    displaySum.textContent += clickedOperator;
-    storedNumber = '';
-    dot = false;
+    if (storedNumber === '') {
+        return;
+    } else {
+        firstNumber = storedNumber;
+        displaySum.textContent += clickedOperator;
+        storedNumber = '';
+        dot = false;
+    };
 };
 
 function del() {
@@ -103,12 +106,8 @@ numberButton.forEach(function (number) {
 
 operatorButton.forEach(function (operator) {
     operator.addEventListener('click', () => {
-        if (storedNumber === '') {
-            return;
-        } else {
-            clickedOperator = operator.value;
-            addOperator();
-        }
+        clickedOperator = operator.value;
+        addOperator();
     });
 });
 
@@ -140,12 +139,8 @@ window.addEventListener("keydown", (event) => {
             showDisplay();
         };
     } else if (/[+,/,*,-]/.test(key)) {
-        if (storedNumber === '') {
-            return;
-        } else {
-            clickedOperator = key;
-            addOperator();
-        }
+        clickedOperator = key;
+        addOperator();
         return;
     } else if (/[=]/.test(key) || /[/r]/.test(key)) {
         calculate();
